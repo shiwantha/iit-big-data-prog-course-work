@@ -14,3 +14,19 @@ yarn jar /resource/big-data-prog-coursework-1.0-SNAPSHOT.jar com.coursework.map.
 
 
 
+https://github.com/shiwantha/iit-big-data-prog-course-work.git
+
+
+  hive
+  create database airbnb_db;
+  use airbnb_db;
+create external table airbnb(id int,name string,host_id int,host_name string,neighbourhood_group string,neighbourhood string,latitude string,longitude string,room_type string,price float,minimum_nights string,number_of_reviews string,last_review string,reviews_per_month string,calculated_host_listings_count string,availability_365 string) row format delimited fields terminated by ',' LOCATION '/resource/';
+
+select avg(price) avg_,neighbourhood_group from airbnb where room_type='Private room' group by neighbourhood_group;
+
+select neighbourhood, avg(price) avg from airbnb where room_type='Private room' group by neighbourhood order by avg desc limit 10;
+
+select * from (SELECT host_id, price, room_type, neighbourhood_group, rank() OVER (PARTITION BY room_type ORDER BY price asc) as rank FROM airbnb) t where t.rank in(1,2,3,4,5) and room_type in ('Shared room','Entire home/apt', 'Private room');
+
+
+
