@@ -1,0 +1,16 @@
+docker run --name zeppelin -p 8080:8080 -v /home/shiwantha/IIT/BigDataProgamming/course-work:/data -d apache/zeppelin:0.8.1
+
+
+docker run -p 8088:8088 -p 50070:50070 --name hadoop-spark-pig-hive -v /home/shiwantha/IIT/BigDataProgamming/course-work/mapReduce:/resource -d suhothayan/hadoop-hive-pig:2.7.1
+
+hdfs dfs -mkdir /resource
+hdfs dfs -mkdir /resource/output
+hdfs dfs -put /resource/big-data-prog-coursework-1.0-SNAPSHOT.jar /resource
+hdfs dfs -put /resource/listings.csv /resource
+
+
+yarn jar /resource/big-data-prog-coursework-1.0-SNAPSHOT.jar com.coursework.map.Availability /resource/listings.csv /resource/output/result.txt
+yarn jar /resource/big-data-prog-coursework-1.0-SNAPSHOT.jar com.coursework.map.Neighbourhood /resource/listings.csv /resource/output/result.txt
+
+
+
